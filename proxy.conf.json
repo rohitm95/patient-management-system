@@ -1,0 +1,11 @@
+{
+	"/patients":{
+		"target":"http://localhost:3000",
+		"secure": false,
+		"pathRewrite": {
+			"^/patients/*": ""
+		},
+		"changeOrigin": true,
+	    "logLevel": "debug"
+	}
+}

@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Edit Patient Details</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup] = "editForm">
+  	<mat-form-field class="full-width">
+        <input type="text" matInput formControlName = "name" placeholder="Name*" value="{{data.name}}">
+    </mat-form-field>
+    <div class="alert alert-danger" *ngIf="!editForm.controls['name'].valid && editForm.controls['name'].touched">{{ titleAlert }}</div>
+    <mat-form-field class="full-width">
+        <input type="text" matInput formControlName = "mobile" placeholder="Mobile Number*" value="{{data.mobile}}">
+    </mat-form-field>
+    <div class="alert alert-danger" *ngIf="!editForm.controls['mobile'].valid && editForm.controls['mobile'].touched">{{ mobileAlert }}</div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+  <button mat-button [mat-dialog-close]="true" (click)="updateData(editForm.value, data.id)" [disabled]="!editForm.valid">Proceed</button>
+</mat-dialog-actions>
