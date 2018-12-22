@@ -7,7 +7,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 This project is comprised of json-server. It is a fake database created for REST services. To use json-server, install json-server from npm or yarn.
 For more information visit https://www.npmjs.com/package/json-server
 
-#Initialize database
+# Initialize database
 
 To initialize database open a terminal and type the following
 
