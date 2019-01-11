@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { LayoutModule } from './layout/layout.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { HeaderComponent } from './layout/header/header.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AppInterceptor } from './shared/app-interceptor';
 
@@ -18,8 +17,7 @@ import { AppInterceptor } from './shared/app-interceptor';
   declarations: [
     AppComponent,
     LoginComponent,
-    NotFoundComponent,
-    HeaderComponent
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
