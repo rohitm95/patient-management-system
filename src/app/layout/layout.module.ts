@@ -6,6 +6,7 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { AppMaterialModule } from '../material.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HeaderComponent } from './header/header.component';
 import { DialogContentDeleteDialog } from './dashboard/dashboard.component';
 import { DialogContentViewDialog } from './dashboard/dashboard.component';
 import { DialogContentInsertDialog } from './dashboard/dashboard.component';
@@ -16,6 +17,7 @@ import { DialogContentSuccessDialog } from './dashboard/dashboard.component';
   declarations: [
     LayoutComponent,
     DashboardComponent,
+    HeaderComponent,
     DialogContentDeleteDialog,
     DialogContentViewDialog,
     DialogContentInsertDialog,

@@ -24,7 +24,6 @@ export class HeaderComponent implements OnInit {
 
     setLogout(){
       localStorage.removeItem('loggedIn');
-      window.location.reload();
     }
 
 }
