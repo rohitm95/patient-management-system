@@ -25,9 +25,11 @@ npm install
 ## Login to the project
 
 Username: admin
+
 Password: 123456
 
 The credentials are set into sessionStorage in login component.
+
 You can change the structure and get credentials from server using services.
 
 
