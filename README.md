@@ -22,6 +22,14 @@ Open a terminal to project directory and load the modules using command
 
 npm install
 
+## Login to the project
+
+Username: admin
+Password: 123456
+
+The credentials are set into sessionStorage in login component.
+You can change the structure and get credentials from server using services.
+
 
 ## Development server
 
@@ -46,4 +54,3 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-"# hospital-namgement" 
