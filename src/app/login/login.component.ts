@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PatientService } from '../shared/services/patient.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -20,7 +19,7 @@ export class LoginComponent implements OnInit {
   	titleAlert = 'Please fill this field';
   	flag: any;
 
-  	constructor(private fb: FormBuilder, public router: Router, private patientservice: PatientService) {
+  	constructor(private fb: FormBuilder, public router: Router) {
   		this.loginForm = fb.group({
   			'uid' : [null, Validators.required],
   			'pass' : [null, Validators.required]
@@ -46,7 +45,6 @@ export class LoginComponent implements OnInit {
 
   	setLogin(){
   		localStorage.setItem('loggedIn', this.loggedIn);
-  		window.location.reload();
   	}
 
   	getCredentials(){
