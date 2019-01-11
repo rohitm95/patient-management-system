@@ -5,8 +5,6 @@ import { AuthGuard } from './shared/auth.guard';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './layout/dashboard/dashboard.component';
-import { InsertComponent } from './layout/insert/insert.component';
-import { UpdateComponent } from './layout/update/update.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
