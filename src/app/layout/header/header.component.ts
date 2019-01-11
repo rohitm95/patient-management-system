@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   	constructor(private router: Router) { }
 
   	ngOnInit() {
-    	//this.loginFlag = sessionStorage.getItem('loggedIn');
+    	this.loginFlag = sessionStorage.getItem('loggedIn');
     	console.log(this.loginFlag);
   	}
 
