@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
   	}
 
   	checkLogin(post) {
+		  console.log(post.uid + post.pass);
   		if(post.uid == this.userId && post.pass == this.password) {
   			this.loggedIn = true;
   			this.setLogin();
