@@ -7,8 +7,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "json-server": "json-server --watch db.json",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "start:proxy": "ng serve -o --proxy-config proxy.conf.json",
+    "mock:server": "json-server --watch db.json --routes routes.json",
+    "start:proxy:mock:server": "concurrently — kill-others \"npm run mock:server\" \"npm run start:proxy\""
   },
   "private": true,
   "dependencies": {
