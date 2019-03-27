@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   	}
 
   	checkLogin(post) {
-		  console.log(post.uid + post.pass);
+		  //console.log(post.uid + ' ' +post.pass);
   		if(post.uid == this.userId && post.pass == this.password) {
   			this.loggedIn = true;
   			this.setLogin();
@@ -45,12 +45,12 @@ export class LoginComponent implements OnInit {
   	}
 
   	setLogin(){
-  		localStorage.setItem('loggedIn', this.loggedIn);
+  		sessionStorage.setItem('loggedIn', this.loggedIn);
   	}
 
   	getCredentials(){
-		localStorage.setItem('uid', 'admin');
-		localStorage.setItem('pass', '123456');
+		sessionStorage.setItem('uid', 'admin');
+		sessionStorage.setItem('pass', '123456');
   	}
 
     reset(){

@@ -7,14 +7,14 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 This project is comprised of json-server. It is a fake database created for REST services. To use json-server, install json-server from npm or yarn.
 For more information visit https://www.npmjs.com/package/json-server
 
-# Initialize database
+# Initialize project
 
-To initialize database open a terminal and type the following
+To initialize project open a terminal and type the following
 
-json-server --watch db.json --routes routes.json
+npm run start:proxy:mock:server
 
-This will initialize the database with the custom routes.
-You can also check the data on http://localhost:3000
+This will initialize the project with database with the custom routes.
+You can also check the data on http://localhost:4200/patients
 
 # Load Packages
 
@@ -28,14 +28,9 @@ Username: admin
 
 Password: 123456
 
-The credentials are set into localStorage in login component.
+The credentials are set into sessionStorage in login component.
 
 You can change the structure and get credentials from server using services.
-
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
 
