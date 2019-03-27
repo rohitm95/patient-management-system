@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
   			'uid' : [null, Validators.required],
   			'pass' : [null, Validators.required]
   		});
-  		this.userId = localStorage.getItem('uid');
-  		this.password = localStorage.getItem('pass');
+  		this.userId = sessionStorage.getItem('uid');
+  		this.password = sessionStorage.getItem('pass');
   	}
 
   	ngOnInit() {
