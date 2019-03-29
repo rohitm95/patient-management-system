@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
   	}
 
     setLogout(){
-      localStorage.removeItem('loggedIn');
+      sessionStorage.removeItem('loggedIn');
     }
 
 }
