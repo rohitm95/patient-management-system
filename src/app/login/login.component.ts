@@ -24,16 +24,17 @@ export class LoginComponent implements OnInit {
   			'uid' : [null, Validators.required],
   			'pass' : [null, Validators.required]
   		});
-  		this.userId = sessionStorage.getItem('uid');
-  		this.password = sessionStorage.getItem('pass');
   	}
 
   	ngOnInit() {
-  		this.getCredentials();
+			this.getCredentials();
+			this.userId = sessionStorage.getItem('uid');
+  		this.password = sessionStorage.getItem('pass');
   	}
 
   	checkLogin(post) {
-		  //console.log(post.uid + ' ' +post.pass);
+			//console.log(post.uid + ' ' +post.pass);
+			//console.log
   		if(post.uid == this.userId && post.pass == this.password) {
   			this.loggedIn = true;
   			this.setLogin();

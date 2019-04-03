@@ -37,6 +37,9 @@ import { DialogContentSuccessDialog } from './dashboard/dashboard.component';
     DialogContentInsertDialog,
     DialogContentEditDialog,
     DialogContentSuccessDialog
+  ],
+  exports: [
+    HeaderComponent
   ]
 })
 export class LayoutModule { }
