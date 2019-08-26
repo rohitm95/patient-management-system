@@ -4,6 +4,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
 
 import { AppMaterialModule } from './material.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -27,7 +30,9 @@ import { AppInterceptor } from './shared/app-interceptor';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    AppMaterialModule
+    AppMaterialModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,
