@@ -5,8 +5,12 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 # Firebase
 
 This project is comprised of Google Firbase. It is a real-time NoSQL database.
+
 Create your own database over the firebase console.
+
 For more information visit https://firebase.google.com
+
+For tutorials visit: https://angular-templates.io/tutorials/about/angular-crud-with-firebase
 
 # Load Packages
 
