@@ -2,19 +2,11 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.0.
 
-# Json-server Database
+# Firebase
 
-This project is comprised of json-server. It is a fake database created for REST services. To use json-server, install json-server from npm or yarn.
-For more information visit https://www.npmjs.com/package/json-server
-
-# Initialize project
-
-To initialize project open a terminal and type the following
-
-npm run start:proxy:mock:server
-
-This will initialize the project with database with the custom routes.
-You can also check the data on http://localhost:4200/patients
+This project is comprised of Google Firbase. It is a real-time NoSQL database.
+Create your own database over the firebase console.
+For more information visit https://firebase.google.com
 
 # Load Packages
 
