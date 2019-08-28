@@ -17,9 +17,10 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class DashboardComponent implements OnInit {
 
     patientDetails: any;
+    patientId: any;
+    count = 1;
   	dataSource = new MatTableDataSource();
-  	displayedColumns: string[] = ['serialNo', 'name', 'mobile', 'actions'];
-
+    displayedColumns: string[] = ['serialNo', 'name', 'mobile', 'actions'];
 
   	@ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -32,7 +33,7 @@ export class DashboardComponent implements OnInit {
 
   	showPatients() {
     	this.patientService.getPatients().subscribe((res: any) => {
-      		this.dataSource.data = res;
+              this.dataSource.data = res;
     	});
   	}
 
@@ -40,12 +41,13 @@ export class DashboardComponent implements OnInit {
         const dialogRef = this.dialog.open(DialogContentDeleteDialog);
 
         dialogRef.afterClosed().subscribe(result => {
-          if(result == true)
-            this.patientService.deletePatient(id).subscribe(res => {
-                this.dialog.open(DialogContentSuccessDialog, {
-                	width: '100px'
+          if (result === true) {
+                this.patientService.deletePatient(id).then(res => {
+                    this.dialog.open(DialogContentSuccessDialog, {
+                        width: '100px'
+                    });
                 });
-            });
+            }
         });
     }
 
@@ -53,7 +55,7 @@ export class DashboardComponent implements OnInit {
         this.patientService.getPatientDetails(id).subscribe((res: any) => {
             this.patientDetails = res;
             this.dialog.open(DialogContentViewDialog, {
-                data: {id: res.id, name: res.name, mobile: res.mobile},
+                data: { name: res.name, mobile: res.mobile }
             });
         });
     }
@@ -64,11 +66,18 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    getPatientDetails(id){
+    getPatientId(id) {
+        this.patientService.getPatientId(id).subscribe((res: any) => {
+            this.patientId = res.payload.id;
+        });
+    }
+
+    getPatientDetails(id) {
+        this.getPatientId(id);
       	this.patientService.getPatientDetails(id).subscribe((res: any) => {
             this.patientDetails = res;
             this.dialog.open(DialogContentEditDialog, {
-                data: {id: res.id, name: res.name, mobile: res.mobile},
+                data: {id: this.patientId, name: res.name, mobile: res.mobile},
                 width: '325px'
             });
         });
@@ -90,10 +99,7 @@ export class DialogContentDeleteDialog {
   	templateUrl: 'dialog-content-success-dialog.html',
 })
 export class DialogContentSuccessDialog {
-    constructor(public dialogRef: MatDialogRef<DialogContentSuccessDialog>){}
-    reload(){
-    	window.location.reload();
-    }
+    constructor(public dialogRef: MatDialogRef<DialogContentSuccessDialog>) { }
 }
 
 @Component({
@@ -130,8 +136,7 @@ export class DialogContentInsertDialog {
             name: post.name,
             mobile: post.mobile
         };
-        console.log(data);
-        this.patientService.insertPatientDetails(data).subscribe(res =>{
+        this.patientService.insertPatientDetails(data).then(res => {
             this.dialog.open(DialogContentSuccessDialog);
         });
     }
@@ -144,12 +149,13 @@ export class DialogContentInsertDialog {
 })
 export class DialogContentEditDialog {
 	editForm: FormGroup;
-    titleAlert = 'Please fill the detail';
+    titleAlert = 'Please fill the details';
     mobileAlert = 'Please enter 10 digits';
     name: any;
     mobile: any;
     post: any;
     patientDetails: any;
+    patientId: any;
 
     constructor(
     private fb: FormBuilder, private router: Router, public dialogRef: MatDialogRef<DialogContentEditDialog>,
@@ -162,21 +168,12 @@ export class DialogContentEditDialog {
         this.editForm.get('mobile').patchValue(data.mobile);
     }
 
-    getPatientDetails(id){
-      	this.patientService.getPatientDetails(id).subscribe((res: any) => {
-            this.patientDetails = res;
-            this.dialog.open(DialogContentEditDialog, {
-                data: {id: res.id, name: res.name, mobile: res.mobile}
-            });
-        });
-    }
-
-    updateData(post, id){
+    updateData(post, id) {
       	let data = {
             name: post.name,
             mobile: post.mobile
         };
-        this.patientService.updatePatientDetails(data, id).subscribe((res: any) => {
+        this.patientService.updatePatientDetails(data, id).then((res: any) => {
         	this.dialog.open(DialogContentSuccessDialog);
         });
     }

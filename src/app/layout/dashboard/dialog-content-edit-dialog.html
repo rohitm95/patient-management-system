@@ -1,6 +1,7 @@
 <h2 mat-dialog-title>Edit Patient Details</h2>
 <mat-dialog-content class="mat-typography">
   <form [formGroup] = "editForm">
+    <input type="hidden" [value]="data.id">
   	<mat-form-field class="full-width">
         <input type="text" matInput formControlName = "name" placeholder="Name*" value="{{data.name}}">
     </mat-form-field>
