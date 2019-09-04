@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 # Firebase
 
-This project is comprised of Google Firbase. It is a real-time NoSQL database.
+This project is comprised of Google Firebase. It is a real-time NoSQL database.
 
 Create your own database over the firebase console.
 
