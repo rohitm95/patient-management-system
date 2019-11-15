@@ -70,9 +70,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     insertPatientDetails() {
-        const dialogRef = this.dialog.open(DialogContentInsertDialog, {
-        	width: '325px'
-        });
+        const dialogRef = this.dialog.open(DialogContentInsertDialog);
     }
 
     getPatientDetails(id) {

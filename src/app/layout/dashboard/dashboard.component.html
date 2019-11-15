@@ -1,6 +1,6 @@
 <div class="dashboard-section">
 	<mat-card class="dashboard-container">
-		<button class="btn btn-primary float-right" (click)="insertPatientDetails()"><i class="fas fa-fw fa-plus-circle"></i> Add New Patient</button>
+		<button mat-raised-button color="primary" class="float-right" (click)="insertPatientDetails()"><i class="fas fa-fw fa-plus-circle"></i> Add New Patient</button>
 		<mat-form-field>
 			<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
 		</mat-form-field>
