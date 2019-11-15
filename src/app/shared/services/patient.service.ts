@@ -6,7 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class PatientService {
 
-	constructor(public db: AngularFirestore) { }
+	constructor(private db: AngularFirestore) { }
 
 	getPatients() {
 		return this.db.collection('patients').snapshotChanges();
@@ -16,15 +16,11 @@ export class PatientService {
 		return this.db.collection('patients').doc(id).valueChanges();
 	}
 
-	getPatientId(id) {
-		return this.db.collection('patients').doc(id).snapshotChanges();
-	}
-
 	insertPatientDetails(data) {
 		return this.db.collection('patients').add({
 			name: data.name,
 			mobile: data.mobile
-		})
+		});
 	}
 
 	deletePatient(id) {
@@ -34,9 +30,5 @@ export class PatientService {
 	updatePatientDetails(data, id) {
 		return this.db.collection('patients').doc(id).set(data);
 	}
-
-	/*getPatientCredentials() : Observable<Patient[]> {
-		return this.http.get<Patient[]>('http://localhost:3000/user/1');
-	}*/
 
 }
