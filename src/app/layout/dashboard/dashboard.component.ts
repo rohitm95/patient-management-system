@@ -1,40 +1,49 @@
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
 import { PatientService } from '../../shared/services/patient.service';
-
 import { Patient } from '../../models/patient.model';
-
-import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-
+import { MatPaginator, MatTableDataSource, MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   	selector: 'app-dashboard',
   	templateUrl: './dashboard.component.html',
   	styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
 
     patientDetails: any;
-    patientId: any;
-    count = 1;
+    patientList: Patient[];
   	dataSource = new MatTableDataSource();
     displayedColumns: string[] = ['serialNo', 'name', 'mobile', 'actions'];
 
-  	@ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+    @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  	constructor(private patientService: PatientService, public dialog: MatDialog, private router: Router) { }
+  	constructor(private patientService: PatientService, public dialog: MatDialog) { }
 
-  	ngOnInit() {
-	   	this.showPatients();
-	   	this.dataSource.paginator = this.paginator;
-  	}
+  	ngOnInit() { }
+      
+    ngAfterViewInit() {
+        this.getPatientsList();  
+    }
 
-  	showPatients() {
-    	this.patientService.getPatients().subscribe((res: any) => {
-              this.dataSource.data = res;
-    	});
+    applyFilter(filterValue: string) {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+
+  	getPatientsList() {
+    	let data = this.patientService.getPatients();
+        data.subscribe(patient => {
+            this.patientList = [];
+            patient.forEach(element => {
+                let json = element.payload.doc.data();
+                json["id"] = element.payload.doc.id;
+                this.patientList.push(json as Patient);
+            });
+            this.dataSource.data = this.patientList;
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+        });
   	}
 
     deletePatientDetails(id) {
@@ -51,11 +60,11 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    seePatientDetails(id) {
+    viewPatientDetails(id) {
         this.patientService.getPatientDetails(id).subscribe((res: any) => {
             this.patientDetails = res;
             this.dialog.open(DialogContentViewDialog, {
-                data: { name: res.name, mobile: res.mobile }
+                data: { id: id, name: res.name, mobile: res.mobile }
             });
         });
     }
@@ -66,18 +75,11 @@ export class DashboardComponent implements OnInit {
         });
     }
 
-    getPatientId(id) {
-        this.patientService.getPatientId(id).subscribe((res: any) => {
-            this.patientId = res.payload.id;
-        });
-    }
-
     getPatientDetails(id) {
-        this.getPatientId(id);
       	this.patientService.getPatientDetails(id).subscribe((res: any) => {
             this.patientDetails = res;
             this.dialog.open(DialogContentEditDialog, {
-                data: {id: this.patientId, name: res.name, mobile: res.mobile},
+                data: {id: id, name: res.name, mobile: res.mobile},
                 width: '325px'
             });
         });
@@ -124,7 +126,7 @@ export class DialogContentInsertDialog {
     mobile: any;
     post: any;
 
-    constructor(private fb: FormBuilder, private router: Router, public dialogRef: MatDialogRef<DialogContentInsertDialog>,
+    constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<DialogContentInsertDialog>,
     public dialog: MatDialog, private patientService: PatientService){
         this.insertForm = fb.group({
             'name': [null, Validators.required],
@@ -155,10 +157,9 @@ export class DialogContentEditDialog {
     mobile: any;
     post: any;
     patientDetails: any;
-    patientId: any;
 
     constructor(
-    private fb: FormBuilder, private router: Router, public dialogRef: MatDialogRef<DialogContentEditDialog>,
+    private fb: FormBuilder, public dialogRef: MatDialogRef<DialogContentEditDialog>,
     @Inject(MAT_DIALOG_DATA) public data: Patient, private patientService: PatientService, public dialog: MatDialog) {
     	this.editForm = fb.group({
             'name': ['', Validators.required],
