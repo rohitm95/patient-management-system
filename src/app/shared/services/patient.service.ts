@@ -18,6 +18,7 @@ export class PatientService {
 
 	insertPatientDetails(data) {
 		return this.db.collection('patients').add({
+			patientId: data.patientId,
 			name: data.name,
 			mobile: data.mobile
 		});
