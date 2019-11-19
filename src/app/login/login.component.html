@@ -6,12 +6,15 @@
 				<form [formGroup] = "loginForm">
 					<mat-form-field class="full-width">
 						<input matInput placeholder="User ID" formControlName = "uid" type = "text">
+						<mat-error *ngIf="!loginForm.controls['uid'].valid && loginForm.controls['uid'].touched">{{titleAlert}}</mat-error>
 					</mat-form-field>
-					<div class="alert alert-danger" *ngIf="!loginForm.controls['uid'].valid && loginForm.controls['uid'].touched">{{ titleAlert }}</div>
 					<mat-form-field class="full-width">
-						<input matInput placeholder="Password" formControlName = "pass" type = "password">
+						<input matInput placeholder="Password" formControlName = "pass" [type]="hide ? 'password' : 'text'">
+						<button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+							<mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+						</button>
+						<mat-error *ngIf="!loginForm.controls['pass'].valid && loginForm.controls['pass'].touched">{{ titleAlert }}</mat-error>
 					</mat-form-field>
-					<div class="alert alert-danger" *ngIf="!loginForm.controls['pass'].valid && loginForm.controls['pass'].touched">{{ titleAlert }}</div>
 					<button mat-raised-button (click)="checkLogin(loginForm.value)">Login</button>
 					<button mat-raised-button type="reset" (click)="reset()">Reset</button>
 					<div class="alert alert-danger text-center invalid-block" *ngIf="flag">Invalid Credentials</div>
