@@ -9,7 +9,8 @@ import {
 	MatPaginatorModule,
 	MatDialogModule,
 	MatSortModule,
-	MatTooltipModule
+	MatTooltipModule,
+	MatIconModule
 } from '@angular/material';
 
 @NgModule({
@@ -21,7 +22,8 @@ import {
 		MatPaginatorModule,
 		MatDialogModule,
 		MatSortModule,
-		MatTooltipModule
+		MatTooltipModule,
+		MatIconModule
 	]
 })
 
