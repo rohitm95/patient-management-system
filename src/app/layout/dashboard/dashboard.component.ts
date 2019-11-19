@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     patientDetails: any;
     patientList: Patient[];
   	dataSource = new MatTableDataSource();
-    displayedColumns: string[] = ['serialNo', 'name', 'mobile', 'actions'];
+    displayedColumns: string[] = ['serialNo', 'patientId', 'name', 'mobile', 'actions'];
 
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) sort: MatSort;
@@ -40,6 +40,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                 json["id"] = element.payload.doc.id;
                 this.patientList.push(json as Patient);
             });
+            console.log(this.patientList);
             this.dataSource.data = this.patientList;
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
@@ -64,7 +65,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.patientService.getPatientDetails(id).subscribe((res: any) => {
             this.patientDetails = res;
             this.dialog.open(DialogContentViewDialog, {
-                data: { id: id, name: res.name, mobile: res.mobile }
+                data: { patientId: res.patientId, name: res.name, mobile: res.mobile }
             });
         });
     }
@@ -77,7 +78,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       	this.patientService.getPatientDetails(id).subscribe((res: any) => {
             this.patientDetails = res;
             this.dialog.open(DialogContentEditDialog, {
-                data: {id: id, name: res.name, mobile: res.mobile},
+                data: {id: id, patientId: res.patientId, name: res.name, mobile: res.mobile},
                 width: '325px'
             });
         });
@@ -118,8 +119,10 @@ export class DialogContentViewDialog {
 })
 export class DialogContentInsertDialog {
     insertForm: FormGroup;
-    titleAlert = 'Please fill the detail';
-    mobileAlert = 'Please enter 10 digits';
+    nameAlert = 'You must enter a value';
+    mobileAlert = 'You must enter 10 digits';
+    idAlert = 'You must enter the ID';
+    patientId: number;
     name: any;
     mobile: any;
     post: any;
@@ -127,12 +130,14 @@ export class DialogContentInsertDialog {
     constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<DialogContentInsertDialog>,
     public dialog: MatDialog, private patientService: PatientService){
         this.insertForm = fb.group({
+            'patientId': [null, Validators.required],
             'name': [null, Validators.required],
             'mobile': [null, Validators.compose([Validators.required, Validators.maxLength(10)])]
         });
     }
     insertData(post) {
         let data = {
+            patient_id: post.id,
             name: post.name,
             mobile: post.mobile
         };
@@ -149,8 +154,9 @@ export class DialogContentInsertDialog {
 })
 export class DialogContentEditDialog {
 	editForm: FormGroup;
-    titleAlert = 'Please fill the details';
+    nameAlert = 'Please fill the details';
     mobileAlert = 'Please enter 10 digits';
+    patientId: number;
     name: any;
     mobile: any;
     post: any;
@@ -160,9 +166,11 @@ export class DialogContentEditDialog {
     private fb: FormBuilder, public dialogRef: MatDialogRef<DialogContentEditDialog>,
     @Inject(MAT_DIALOG_DATA) public data: Patient, private patientService: PatientService, public dialog: MatDialog) {
     	this.editForm = fb.group({
+            'patientId': ['', Validators.required],
             'name': ['', Validators.required],
-            'mobile': ['', Validators.compose([Validators.required, Validators.maxLength(10)])]
+            'mobile': ['', Validators.compose([Validators.required, Validators.maxLength(10), Validators.minLength(10)])]
         });
+        this.editForm.get('patientId').patchValue(data.patientId);
         this.editForm.get('name').patchValue(data.name);
         this.editForm.get('mobile').patchValue(data.mobile);
     }
