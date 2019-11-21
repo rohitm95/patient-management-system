@@ -40,7 +40,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                 json["id"] = element.payload.doc.id;
                 this.patientList.push(json as Patient);
             });
-            console.log(this.patientList);
             this.dataSource.data = this.patientList;
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
@@ -166,7 +165,7 @@ export class DialogContentEditDialog {
     private fb: FormBuilder, public dialogRef: MatDialogRef<DialogContentEditDialog>,
     @Inject(MAT_DIALOG_DATA) public data: Patient, private patientService: PatientService, public dialog: MatDialog) {
     	this.editForm = fb.group({
-            'patientId': ['', Validators.required],
+            'patientId': new FormControl({value: data.patientId, disabled: true}),
             'name': ['', Validators.required],
             'mobile': ['', Validators.compose([Validators.required, Validators.maxLength(10), Validators.minLength(10)])]
         });

@@ -3,7 +3,7 @@
   <form [formGroup] = "editForm">
     <input type="hidden" [value]="data.id">
     <mat-form-field class="full-width">
-        <input type="text" matInput formControlName = "patientId" placeholder="Patient ID*" value="{{data.patientId}}" disabled="true">
+        <input type="text" matInput formControlName = "patientId" placeholder="Patient ID*">
     </mat-form-field>
   	<mat-form-field class="full-width">
         <input type="text" matInput formControlName = "name" placeholder="Name*" value="{{data.name}}">
