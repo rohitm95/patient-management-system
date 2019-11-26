@@ -172,10 +172,12 @@ export class DialogContentEditDialog {
         this.editForm.get('patientId').patchValue(data.patientId);
         this.editForm.get('name').patchValue(data.name);
         this.editForm.get('mobile').patchValue(data.mobile);
+        this.patientId = data.patientId;
     }
 
     updateData(post, id) {
       	let data = {
+            patientId: this.patientId,
             name: post.name,
             mobile: post.mobile
         };
