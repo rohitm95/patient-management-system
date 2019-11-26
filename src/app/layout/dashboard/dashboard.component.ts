@@ -136,7 +136,7 @@ export class DialogContentInsertDialog {
     }
     insertData(post) {
         let data = {
-            patient_id: post.id,
+            patientId: post.patientId,
             name: post.name,
             mobile: post.mobile
         };
