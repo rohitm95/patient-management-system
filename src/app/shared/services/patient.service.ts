@@ -1,42 +1,35 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Patient } from '../../models/patient.model';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PatientService {
 
-	private serviceUrl = 'http://localhost:3000/patients';
-	private httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
+	constructor(private db: AngularFirestore) { }
 
-	constructor(private http: HttpClient) { }
-
-	getPatients() : Observable<Patient[]> {
-		return this.http.get<Patient[]>(this.serviceUrl);
+	getPatients() {
+		return this.db.collection('patients').snapshotChanges();
 	}
 
-	getPatientDetails(id) : Observable<Patient[]> {
-		return this.http.get<Patient[]>(this.serviceUrl+"/get/"+id);
+	getPatientDetails(id) {
+		return this.db.collection('patients').doc(id).valueChanges();
 	}
 
-	insertPatientDetails(data) : Observable<Patient[]>{
-		return this.http.post<Patient[]>(this.serviceUrl+"/create", data, this.httpOptions);
+	insertPatientDetails(data) {
+		return this.db.collection('patients').add({
+			patientId: data.patientId,
+			name: data.name,
+			mobile: data.mobile
+		});
 	}
 
-	deletePatient(id) : Observable<Patient[]>{
-		return this.http.delete<Patient[]>(this.serviceUrl+"/delete/"+id, this.httpOptions);
+	deletePatient(id) {
+		return this.db.collection('patients').doc(id).delete();
 	}
 
-	updatePatientDetails(data,id) : Observable<Patient[]>{
-		return this.http.put<Patient[]>(this.serviceUrl+"/update/"+id, data, this.httpOptions);
+	updatePatientDetails(data, id) {
+		return this.db.collection('patients').doc(id).set(data);
 	}
-
-	/*getPatientCredentials() : Observable<Patient[]> {
-		return this.http.get<Patient[]>('http://localhost:3000/user/1');
-	}*/
 
 }

@@ -1,8 +1,0 @@
-
-{
-  "/patients/list": "/patients",
-  "/patients/get/:id": "/patients/:id",
-  "/patients/create": "/patients",
-  "/patients/update/:id": "/patients/:id",
-  "/patients/delete/:id": "/patients/:id"
-}

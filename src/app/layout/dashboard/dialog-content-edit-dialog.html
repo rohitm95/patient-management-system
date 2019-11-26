@@ -1,14 +1,19 @@
 <h2 mat-dialog-title>Edit Patient Details</h2>
 <mat-dialog-content class="mat-typography">
   <form [formGroup] = "editForm">
+    <input type="hidden" [value]="data.id">
+    <mat-form-field class="full-width">
+        <input type="text" matInput formControlName = "patientId" placeholder="Patient ID*">
+    </mat-form-field>
   	<mat-form-field class="full-width">
         <input type="text" matInput formControlName = "name" placeholder="Name*" value="{{data.name}}">
+        <mat-error *ngIf="!editForm.controls['name'].valid && editForm.controls['name'].touched">{{nameAlert}}</mat-error>
     </mat-form-field>
-    <div class="alert alert-danger" *ngIf="!editForm.controls['name'].valid && editForm.controls['name'].touched">{{ titleAlert }}</div>
-    <mat-form-field class="full-width">
-        <input type="text" matInput formControlName = "mobile" placeholder="Mobile Number*" value="{{data.mobile}}">
+    <mat-form-field class="full-width" hintLabel="Max 10 digits">
+        <input type="text" matInput #input formControlName = "mobile" placeholder="Mobile Number*" value="{{data.mobile}}">
+        <mat-error *ngIf="!editForm.controls['mobile'].valid && editForm.controls['mobile'].touched">{{mobileAlert}}</mat-error>
+        <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
     </mat-form-field>
-    <div class="alert alert-danger" *ngIf="!editForm.controls['mobile'].valid && editForm.controls['mobile'].touched">{{ mobileAlert }}</div>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

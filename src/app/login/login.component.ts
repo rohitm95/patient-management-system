@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
   	selector: 'app-login',
@@ -17,24 +19,25 @@ export class LoginComponent implements OnInit {
 	password: string;
 	loggedIn : any;
   	titleAlert = 'Please fill this field';
-  	flag: any;
+	flag: any;
+	hide = true;
 
-  	constructor(private fb: FormBuilder, public router: Router) {
+  	constructor(private fb: FormBuilder, public router: Router, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
   		this.loginForm = fb.group({
   			'uid' : [null, Validators.required],
   			'pass' : [null, Validators.required]
-  		});
+		});
+		// iconRegistry.addSvgIcon('visibility', sanitizer.bypassSecurityTrustResourceUrl('assets/assets/icons/eye-regular.svg'));
+		// iconRegistry.addSvgIcon('visibility_off', sanitizer.bypassSecurityTrustResourceUrl('assets/assets/icons/eye-slash-regular.svg'));
   	}
 
   	ngOnInit() {
-			this.getCredentials();
-			this.userId = sessionStorage.getItem('uid');
+		this.getCredentials();
+		this.userId = sessionStorage.getItem('uid');
   		this.password = sessionStorage.getItem('pass');
   	}
 
   	checkLogin(post) {
-			//console.log(post.uid + ' ' +post.pass);
-			//console.log
   		if(post.uid == this.userId && post.pass == this.password) {
   			this.loggedIn = true;
   			this.setLogin();
