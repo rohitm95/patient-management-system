@@ -11,7 +11,6 @@ import { DialogContentDeleteDialog } from './dashboard/dashboard.component';
 import { DialogContentViewDialog } from './dashboard/dashboard.component';
 import { DialogContentInsertDialog } from './dashboard/dashboard.component';
 import { DialogContentEditDialog } from './dashboard/dashboard.component';
-import { DialogContentSuccessDialog } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,7 @@ import { DialogContentSuccessDialog } from './dashboard/dashboard.component';
     DialogContentDeleteDialog,
     DialogContentViewDialog,
     DialogContentInsertDialog,
-    DialogContentEditDialog,
-    DialogContentSuccessDialog
+    DialogContentEditDialog
     ],
   imports: [
     CommonModule,
@@ -35,8 +33,7 @@ import { DialogContentSuccessDialog } from './dashboard/dashboard.component';
     DialogContentDeleteDialog,
     DialogContentViewDialog,
     DialogContentInsertDialog,
-    DialogContentEditDialog,
-    DialogContentSuccessDialog
+    DialogContentEditDialog
   ],
   exports: [
     HeaderComponent

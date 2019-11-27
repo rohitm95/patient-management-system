@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { ToastrModule } from 'ngx-toastr';
 import { environment } from '../environments/environment';
 
 import { AppMaterialModule } from './material.module';
@@ -32,7 +33,8 @@ import { AppInterceptor } from './shared/app-interceptor';
     HttpClientModule,
     AppMaterialModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    ToastrModule.forRoot()
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

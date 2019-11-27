@@ -6,7 +6,7 @@
 		</mat-form-field>
 		<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-			<!--  Column -->
+			<!-- Serial no Column -->
 			<ng-container matColumnDef="serialNo">
 				<th mat-sort-header mat-header-cell *matHeaderCellDef > Serial No. </th>
 				<td mat-cell *matCellDef="let element; let i = index"> {{i + 1}} </td>
@@ -24,13 +24,13 @@
 				<td mat-cell *matCellDef="let element"> {{element.name}} </td>
 			</ng-container>
 
-			<!--  Column -->
+			<!-- Mobile no Column -->
 			<ng-container matColumnDef="mobile">
 				<th mat-sort-header mat-header-cell *matHeaderCellDef > Mobile Number </th>
 				<td mat-cell *matCellDef="let element"> {{element.mobile}} </td>
 			</ng-container>
 
-			<!--  Column -->
+			<!-- Actions Column -->
 			<ng-container matColumnDef="actions">
 				<th mat-header-cell *matHeaderCellDef class="text-center"> Actions </th>
 				<td mat-cell *matCellDef="let element" class="text-center">

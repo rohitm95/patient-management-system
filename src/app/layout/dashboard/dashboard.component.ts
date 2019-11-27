@@ -3,6 +3,7 @@ import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms'
 import { PatientService } from '../../shared/services/patient.service';
 import { Patient } from '../../models/patient.model';
 import { MatPaginator, MatTableDataSource, MatSort, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   	selector: 'app-dashboard',
@@ -19,7 +20,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
     @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  	constructor(private patientService: PatientService, public dialog: MatDialog) { }
+  	constructor(private patientService: PatientService, public dialog: MatDialog, private toastr: ToastrService) { }
 
   	ngOnInit() { }
       
@@ -52,9 +53,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         dialogRef.afterClosed().subscribe(result => {
           if (result === true) {
                 this.patientService.deletePatient(id).then(res => {
-                    this.dialog.open(DialogContentSuccessDialog, {
-                        width: '100px'
-                    });
+                    this.toastr.success("Deleted!");
                 });
             }
         });
@@ -95,14 +94,6 @@ export class DialogContentDeleteDialog {
 }
 
 @Component({
-  	selector: 'dialog-content-success-dialog',
-  	templateUrl: 'dialog-content-success-dialog.html',
-})
-export class DialogContentSuccessDialog {
-    constructor(public dialogRef: MatDialogRef<DialogContentSuccessDialog>) { }
-}
-
-@Component({
   	selector: 'dialog-content-view-dialog',
   	templateUrl: 'dialog-content-view-dialog.html',
 })
@@ -127,7 +118,7 @@ export class DialogContentInsertDialog {
     post: any;
 
     constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<DialogContentInsertDialog>,
-    public dialog: MatDialog, private patientService: PatientService){
+    public dialog: MatDialog, private patientService: PatientService, private toastr: ToastrService){
         this.insertForm = fb.group({
             'patientId': [null, Validators.required],
             'name': [null, Validators.required],
@@ -141,7 +132,7 @@ export class DialogContentInsertDialog {
             mobile: post.mobile
         };
         this.patientService.insertPatientDetails(data).then(res => {
-            this.dialog.open(DialogContentSuccessDialog);
+            this.toastr.success("Inserted!")
         });
     }
 
@@ -163,7 +154,7 @@ export class DialogContentEditDialog {
 
     constructor(
     private fb: FormBuilder, public dialogRef: MatDialogRef<DialogContentEditDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: Patient, private patientService: PatientService, public dialog: MatDialog) {
+    @Inject(MAT_DIALOG_DATA) public data: Patient, private patientService: PatientService, public dialog: MatDialog, private toastr: ToastrService) {
     	this.editForm = fb.group({
             'patientId': new FormControl({value: data.patientId, disabled: true}),
             'name': ['', Validators.required],
@@ -182,7 +173,7 @@ export class DialogContentEditDialog {
             mobile: post.mobile
         };
         this.patientService.updatePatientDetails(data, id).then((res: any) => {
-        	this.dialog.open(DialogContentSuccessDialog);
+        	this.toastr.success("Updated!");
         });
     }
 }
