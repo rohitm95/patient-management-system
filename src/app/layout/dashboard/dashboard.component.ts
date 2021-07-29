@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Inject, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, Inject, AfterViewInit } from '@angular/core';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { PatientService } from '../../shared/services/patient.service';
 import { Patient } from '../../models/patient.model';
@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   	templateUrl: './dashboard.component.html',
   	styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
+export class DashboardComponent implements AfterViewInit {
 
     patientDetails: any;
     patientList: Patient[];
@@ -21,8 +21,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   	constructor(private patientService: PatientService, public dialog: MatDialog, private toastr: ToastrService) { }
-
-  	ngOnInit() { }
       
     ngAfterViewInit() {
         this.getPatientsList();  
@@ -61,7 +59,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     viewPatientDetails(id) {
         this.patientService.getPatientDetails(id).subscribe((res: any) => {
-            this.patientDetails = res;
             this.dialog.open(DialogContentViewDialog, {
                 data: { patientId: res.patientId, name: res.name, mobile: res.mobile }
             });
@@ -69,17 +66,18 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     insertPatientDetails() {
-        const dialogRef = this.dialog.open(DialogContentInsertDialog);
+        this.dialog.open(DialogContentInsertDialog);
     }
 
     getPatientDetails(id) {
-      	this.patientService.getPatientDetails(id).subscribe((res: any) => {
-            this.patientDetails = res;
+        let patientDetails = this.patientService.getPatientDetails(id).subscribe((res: any) => {
             this.dialog.open(DialogContentEditDialog, {
-                data: {id: id, patientId: res.patientId, name: res.name, mobile: res.mobile},
-                width: '325px'
+                data: {id: id, patientId: res.patientId, name: res.name, mobile: res.mobile}
             });
-        });
+            if(res) {
+                patientDetails.unsubscribe();
+            }
+        })
     }
 
 }
@@ -173,7 +171,7 @@ export class DialogContentEditDialog {
             mobile: post.mobile
         };
         this.patientService.updatePatientDetails(data, id).then((res: any) => {
-        	this.toastr.success("Updated!");
+            this.toastr.success("Updated!");
         });
     }
 }

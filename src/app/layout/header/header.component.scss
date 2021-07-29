@@ -1,35 +1,15 @@
 $topnav-background-color: #222;
 :host {
-    .navbar {
-        background-color: #222;
-        .navbar-brand {
-            color: #fff;
-        }
-        .nav-item > a {
-            color: #fff;
-        }
+  .toolbar {
+    background-color: #222;
+    color: #fff;
+    .fill-remaining-space {
+      /* This fills the remaining space, by using flexbox. 
+               Every toolbar row uses a flexbox row layout. */
+      flex: 1 1 auto;
     }
-    .messages {
-        width: 300px;
-        .media {
-            border-bottom: 1px solid #ddd;
-            padding: 5px 10px;
-            &:last-child {
-                border-bottom: none;
-            }
-        }
-        .media-body {
-            h5 {
-                font-size: 13px;
-                font-weight: 600;
-            }
-            .small {
-                margin: 0;
-            }
-            .last {
-                font-size: 12px;
-                margin: 0;
-            }
-        }
+    .menu-btn {
+      font-size: 18px;
     }
+  }
 }

@@ -1,9 +1,11 @@
 <div class="dashboard-section">
 	<mat-card class="dashboard-container">
-		<button mat-raised-button color="primary" class="float-right" (click)="insertPatientDetails()"><i class="fas fa-fw fa-plus-circle"></i> Add New Patient</button>
-		<mat-form-field>
-			<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-		</mat-form-field>
+		<div class="clearfix">
+			<mat-form-field class="float-start">
+				<input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+			</mat-form-field>
+			<button mat-raised-button color="primary" class="float-end" (click)="insertPatientDetails()"><i class="fas fa-fw fa-plus-circle"></i> Add New Patient</button>
+		</div>
 		<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
 			<!-- Serial no Column -->
